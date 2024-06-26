@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleWatched, deleteMovie,editMovie, fetchMovies } from '../features/moviesSlice';
+import { toggleWatched, deleteMovie,editMovie, fetchMovies,toggleWatchedOptimistic, deleteMovieOptimistic,setEditingMovie } from '../features/moviesSlice';
 
 const MoviesList = () => {
   const {movies, deleting} = useSelector((state) => state.movies);
@@ -13,16 +13,20 @@ const MoviesList = () => {
   },[dispatch]);
 
   const handleToggleWatched = (id) => {
+    console.log(id);
+    dispatch(toggleWatchedOptimistic(id));
     dispatch(toggleWatched(id));
 };
 
 const handleDeleteMovie = (id) => {
   console.log('movie list',id)
+  dispatch(deleteMovieOptimistic(id));
   dispatch(deleteMovie(id));
 };
 
   const handleEditClick = (movie) => {
-    dispatch(editMovie(movie))
+    console.log(movie);
+    dispatch(setEditingMovie(movie));
   };
 
   const handleCancelEdit = () => {
@@ -48,7 +52,7 @@ const handleDeleteMovie = (id) => {
                         <p>Release Year: {movie.releaseYear}</p>
                         <p>Genre: {movie.genre}</p>
                         <p>Status: {movie.watched ? 'Watched' : 'Unwatched'}</p>
-                        <button onClick={() => handleToggleWatched(movie.id)}>
+                        <button onClick={() => handleToggleWatched(movie._id)}>
                             Mark as {movie.watched ? 'Unwatched' : 'Watched'}
                         </button>
                         <button onClick={() => handleEditClick(movie)}>Edit</button>

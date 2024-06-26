@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addMovies, editMovie, saveEditedMovie } from '../features/moviesSlice';
+import { addMovies, editMovie, saveEditedMovie, addMovieOptimistic, editMovieOptimistic, cancelEdit } from '../features/moviesSlice';
+import { v4 as uuidv4 } from 'uuid';
 
 const Addmovie = () => {
     const dispatch = useDispatch();
@@ -10,32 +11,34 @@ const Addmovie = () => {
     const [description, setDescription] = useState('');
     const [releaseYear, setReleaseYear] = useState('');
     const [genre, setGenre] = useState('');
+    const [_id, setId] = useState(0)
+
+
+    useEffect(() => {
+        if (editingMovie) {
+            setId(editingMovie._id);
+            setTitle(editingMovie.title || '');
+            setDescription(editingMovie.description || '');
+            setReleaseYear(editingMovie.releaseYear || '');
+            setGenre(editingMovie.genre || '');
+        }
+    }, [editingMovie]);
 
     const handleAddOrUpdateMovie = (e) => {
         e.preventDefault();
         if (editingMovie) {
-            // Update existing movie
-            dispatch(
-                saveEditedMovie({
-                    id: editingMovie.id,
-                    title,
-                    description,
-                    releaseYear,
-                    genre,
-                })
-            );
+            console.log(editingMovie)
+            const movieData = { title, description, releaseYear, genre, _id };
+            console.log(movieData)
+            dispatch(editMovieOptimistic(movieData));
+            dispatch(editMovie(movieData));
+            dispatch(cancelEdit());
         } else {
-            // Add new movie
-            dispatch(
-                addMovies({
-                    title,
-                    description,
-                    releaseYear,
-                    genre,
-                })
-            );
+            const movieData = { title, description, releaseYear, genre };
+            console.log(movieData)
+            dispatch(addMovieOptimistic(movieData));
+            dispatch(addMovies(movieData));
         }
-
         // Reset form fields
         setTitle('');
         setDescription('');
@@ -44,19 +47,7 @@ const Addmovie = () => {
     };
 
 
-    useEffect(() => {
-        if (editingMovie) {
-            setTitle(editingMovie.title || '');
-            setDescription(editingMovie.description || '');
-            setReleaseYear(editingMovie.releaseYear || '');
-            setGenre(editingMovie.genre || '');
-        } else {
-            setTitle('');
-            setDescription('');
-            setReleaseYear('');
-            setGenre('');
-        }
-    }, [editingMovie]);
+
 
     return (
         <div>
@@ -71,11 +62,11 @@ const Addmovie = () => {
                 </label>
                 {/* Release Year */}
                 <label>
-                    Release Year: <input type='number' value={releaseYear} onChange={(e) => setReleaseYear(e.target.value)} />
+                    Release Year: <input type='number'  value={releaseYear} onChange={(e) => setReleaseYear(e.target.value)} />
                 </label>
                 {/* genre */}
                 <label>
-                    Genre: <input type='text'value={genre} onChange={(e) => setGenre(e.target.value)} />
+                    Genre: <input type='text' value={genre} onChange={(e) => setGenre(e.target.value)} />
                 </label>
                 <button type='submit'>{editingMovie ? 'Update Movie' : 'Add Movie'}</button>
             </form>
