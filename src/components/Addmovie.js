@@ -16,7 +16,7 @@ const Addmovie = () => {
 
     useEffect(() => {
         if (editingMovie) {
-            setId(editingMovie._id);
+            console.log(editingMovie,"this is editing movie")
             setTitle(editingMovie.title || '');
             setDescription(editingMovie.description || '');
             setReleaseYear(editingMovie.releaseYear || '');
@@ -26,16 +26,14 @@ const Addmovie = () => {
 
     const handleAddOrUpdateMovie = (e) => {
         e.preventDefault();
+        const movieData = { title, description, releaseYear, genre };
         if (editingMovie) {
-            console.log(editingMovie)
-            const movieData = { title, description, releaseYear, genre, _id };
-            console.log(movieData)
+            movieData._id= editingMovie._id;
+            console.log(movieData,"data which is going to be updated")
             dispatch(editMovieOptimistic(movieData));
             dispatch(editMovie(movieData));
             dispatch(cancelEdit());
         } else {
-            const movieData = { title, description, releaseYear, genre };
-            console.log(movieData)
             dispatch(addMovieOptimistic(movieData));
             dispatch(addMovies(movieData));
         }

@@ -5,6 +5,7 @@ import { toggleWatched, deleteMovie,editMovie, fetchMovies,toggleWatchedOptimist
 const MoviesList = () => {
   const {movies, deleting} = useSelector((state) => state.movies);
   const dispatch = useDispatch();
+  // console.log(movies,"this is moviielist function")
 
   const [editMovieId, setEditMovieId] = useState(null);
 
@@ -19,13 +20,13 @@ const MoviesList = () => {
 };
 
 const handleDeleteMovie = (id) => {
-  console.log('movie list',id)
+  // console.log('movie list',id)
   dispatch(deleteMovieOptimistic(id));
   dispatch(deleteMovie(id));
 };
 
   const handleEditClick = (movie) => {
-    console.log(movie);
+    console.log(movie,"handleedit function");
     dispatch(setEditingMovie(movie));
   };
 
