@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  color: white;
 }
 
 .App-logo {
@@ -35,4 +36,123 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.form-div{
+  border: 1px solid rgb(50, 39, 39);
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  margin: auto;
+  width: 80%;
+  border-radius: 10px;
+  margin-top: 10px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(140, 140, 140, 0.12) 0px 4px 6px, rgba(133, 132, 132, 0.17) 0px 12px 13px, rgba(170, 166, 166, 0.09) 0px -3px 5px;
+}
+form{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+form>div{
+  /* border: 1px solid green; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+form>div>input,textarea{
+  margin: 10px ;
+  height: 30px;
+  width: 200px;
+  border-radius: 8px;
+  font-size: medium;
+}
+
+form>div>label{
+  font-size: large;
+  margin: 10px;
+}
+
+.btn{
+  width: 100px;
+  padding: 8px;
+  font-size: small;
+  background-color: #83a3c8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.cncl-btn,.dlt-btn{
+  background-color: #e79191;
+}
+
+
+.movie-container{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 50px;
+  justify-content: center;
+}
+
+.movie-card{
+  background-color: #353232;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  overflow: hidden;
+  width: 300px;
+  transition: transform 0.2s;
+  padding: 5px;
+  padding-top: 10px;
+  box-shadow: rgba(206, 206, 211, 0.25) 0px 50px 100px -20px, rgba(130, 126, 126, 0.3) 0px 30px 60px -30px, rgba(102, 103, 105, 0.35) 0px -2px 6px 0px inset;
+}
+.movie-card:hover {
+  transform: scale(1.05);
+}
+
+.toggle-btn,.edit-btn,.dlt-btn{
+  height: 30px;
+  padding: 5px 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.movie-img{
+  width: 95%;
+  height: 200px;
+  border-radius: 8px;
+}
+
+p{
+  margin: 5px;
+}
+
+
+
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: red; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #b30000; 
 }

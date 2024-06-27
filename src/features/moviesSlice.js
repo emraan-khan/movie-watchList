@@ -8,24 +8,20 @@ const API_URL = 'http://localhost:5000/api/movies';
 // thunk function to perform impure js function
 export const fetchMovies = createAsyncThunk('movies/fetchMovie', async () => {
   const response = await axios.get(API_URL);
-  console.log(response.data.data,"this is response")
   return response.data;
 });
 
 export const addMovies = createAsyncThunk('movies/addMovie', async (movie) => {
   const response = await axios.post(`${API_URL}/add`, movie);
-  // console.log("res",response.data)
   return response.data;
 })
 
 export const editMovie = createAsyncThunk('movies/editMovie', async (movie) => {
   const response = await axios.put(`${API_URL}/${movie._id}`, movie);
-  console.log("edit movie function api",response.data.message);
   return response.data;
 })
 
 export const deleteMovie = createAsyncThunk('movies/deleteMovie', async (id) => {
-  // console.log('inside delete function', id)
   await axios.delete(`${API_URL}/${id}`);
   return id;
 });
@@ -54,9 +50,7 @@ const moviesSlice = createSlice({
       state.editingMovie = null; // Clear editing state on cancel
     },
     addMovieOptimistic:(state, action) => {
-      // state.movies.push(action.payload);
-      // console.log(state.movies,"after adding movies")
-    },
+      },
     editMovieOptimistic: (state, action) => {
       const updatedMovie = action.payload;
       const index = state.movies.findIndex((movie) => movie._id === updatedMovie._id);
@@ -69,8 +63,6 @@ const moviesSlice = createSlice({
       }
     },
     deleteMovieOptimistic: (state, action) => {
-      // console.log(action.payload,"this is action id for delete");
-      // state.movies = state.movies.filter((movie) => movie._id !== action.payload);
     },
     toggleWatchedOptimistic:(state, action) => {
       const movieId = action.payload; // Assuming payload is the movie _id
@@ -101,7 +93,6 @@ const moviesSlice = createSlice({
       .addCase(fetchMovies.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.movies = action.payload.data;
-        // console.log(state.movies, "here is movie")
       })
       .addCase(fetchMovies.rejected, (state, action) => {
         state.status = 'failed';
@@ -110,16 +101,9 @@ const moviesSlice = createSlice({
       .addCase(addMovies.fulfilled, (state, action) => {
         
         state.movies.push(action.payload.data);
-        console.log(action.payload,"jhgjgjfhgdghfdg")
       })
       .addCase(editMovie.fulfilled, (state, action) => {
-        // const index = state.movies.findIndex(movie => movie._id === action.payload.message._id);
-        // console.log(action.payload.message._id)
-        // if (index !== -1) {
-        //   state.movies[index] = action.payload.message;
-        // }
         const updatedMovie = action.payload;
-        console.log(updatedMovie,"this is updated movie");
       const index = state.movies.findIndex((movie) => movie._id === updatedMovie._id);
 
       if (index !== -1) {
@@ -131,10 +115,9 @@ const moviesSlice = createSlice({
       })
       .addCase(deleteMovie.fulfilled, (state, action) => {
         state.movies = state.movies.filter(movie => movie._id !== action.payload);
-        // console.log('movies after delete', state.movies)
       })
   }
 })
 
-export const { saveEditedMovie, cancelEdit,addMovieOptimistic,deleteMovieOptimistic,toggleWatchedOptimistic,editMovieOptimistic,setEditingMovie } = moviesSlice.actions;
+export const { cancelEdit,addMovieOptimistic,deleteMovieOptimistic,toggleWatchedOptimistic,editMovieOptimistic,setEditingMovie } = moviesSlice.actions;
 export default moviesSlice.reducer;
