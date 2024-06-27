@@ -46,10 +46,10 @@ const handleDeleteMovie = (id) => {
                 {movies.map((movie,key) => (
                     <div key={key} className='movie-card'>
                     <img  src={foto} className='movie-img' />
-                        <p>{movie.title}</p>
-                        <p>{movie.description}</p>
-                        <p>Release Year: {movie.releaseYear}</p>
-                        <p>Genre: {movie.genre}</p>
+                        <p className="b">{movie.title}</p>
+                        <p className='s' >{movie.description}</p>
+                        <p className='s' >Release Year: {movie.releaseYear}</p>
+                        <p className='s' >Genre: {movie.genre}</p>
                         <p>Status: {movie.watched ? 'Watched' : 'Unwatched'}</p>
                         <button className='toggle-btn' onClick={() => handleToggleWatched(movie._id)}>
                             Mark as {movie.watched ? 'Unwatched' : 'Watched'}

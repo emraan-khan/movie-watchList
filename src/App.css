@@ -156,3 +156,12 @@ p{
 ::-webkit-scrollbar-thumb:hover {
   background: #b30000; 
 }
+
+
+.b{
+  font-size: large;
+}
+
+.s{
+  font-size: medium;
+}
